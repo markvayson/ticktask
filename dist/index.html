@@ -3,9 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>To Do List</title>
   </head>
   <body>
+    <div id="container" class="h-full p-2 flex">
+      <div
+        id="sidebar"
+        class="flex flex-col justify-between bg-slate-50 p-8 rounded-xl basis-1/4"
+      >
+        <div id="menu-container" class="flex flex-col gap-5">
+          <div id="menu" class="text-2xl flex justify-between">
+            <span id="text" class="font-medium tracking-wider">Menu</span>
+            <button id="burger">=</button>
+          </div>
+          <div id="search">
+            <input
+              class="p-2 w-full text-lg bg-slate-50 border border-slate-200"
+              type="text"
+              placeholder="Search"
+            />
+          </div>
+        </div>
+        <div id="tasks" class="flex text-xl flex-col gap-5">
+          <span class="uppercase font-bold tracking-wider">Tasks</span>
+          <ul class="pl-5 flex text-lg flex-col gap-2">
+            <li>Upcoming</li>
+            <li>Today</li>
+            <li>Calendar</li>
+            <li>Sticky Wall</li>
+          </ul>
+        </div>
+        <div id="Lists" class="flex text-xl flex-col gap-5">
+          <span class="uppercase font-bold tracking-wider">Lists</span>
+          <ul class="pl-5 flex flex-col text-lg gap-2">
+            <li>Personal</li>
+            <li>Work</li>
+            <li>List 1</li>
+            <li>Add New List</li>
+          </ul>
+        </div>
+        <div id="tags" class="flex flex-col text-xl gap-5">
+          <span class="uppercase font-bold tracking-wider">TAGS</span>
+          <div id="tagBtns" class="flex gap-2 text-lg font-medium">
+            <button class="bg-cyan-200 px-3 py-1 rounded-lg">Tag 1</button>
+            <button class="bg-red-200 px-3 py-1 rounded-lg">Tag 2</button>
+            <button class="bg-slate-200 px-3 py-1 rounded-lg">+ Add Tag</button>
+          </div>
+        </div>
+        <div
+          id="settings-container"
+          class="text-xl capitalize tracking-wider flex flex-col gap-2"
+        >
+          <div id="settings">settings</div>
+          <div id="sign out">Sign Out</div>
+        </div>
+      </div>
+      <div id="contents" class="flex col-span-2 basis-3/4">
+        <div id="content" class="flex flex-col gap-10 p-5">
+          <div id="header" class="flex gap-5 text-5xl items-center">
+            <span>Today</span>
+            <div id="numberofTasks" class="text-4xl">5</div>
+          </div>
+          <div id="task-container" class="flex flex-col gap-5">
+            <button class="border border-slate-200 p-3 w-full text-left">
+              + Add New Task
+            </button>
+            <ul id="task-list" class="text-lg">
+              <li class="flex items-center gap-3 p-2 border-b border-slate-200">
+                <fieldset>
+                  <input class="w-4 h-4" type="checkbox" id="task-1" />
+                  <label for="task-1"> Research Content ideas </label>
+                </fieldset>
+              </li>
+              <li class="flex items-center gap-3 p-2 border-b border-slate-200">
+                <fieldset>
+                  <input class="w-4 h-4" type="checkbox" id="task-2" />
+                  <label for="task-2">
+                    Create a database if guest authors
+                  </label>
+                </fieldset>
+              </li>
+              <li class="flex flex-col gap-3 p-2 border-b border-slate-200">
+                <fieldset>
+                  <input class="w-4 h-4" type="checkbox" id="task-3" />
+                  <label for="task-3"> Renew Driver's License </label>
+                </fieldset>
+                <div id="notes" class="flex gap-5">
+                  <div id="date" class="border-e px-2 border-slate-200">
+                    22-03-23
+                  </div>
+                  <div id="Subtasks" class="border-e px-2 border-slate-200">
+                    <span
+                      id="numberofSubTasks"
+                      class="bg-slate-200 px-2 text-center py-1 rounded-md"
+                    >
+                      1
+                    </span>
+                    <span id="subtext">Subtasks</span>
+                  </div>
+                  <div id="List" class="border-e px-2 border-slate-200">
+                    Personal
+                  </div>
+                </div>
+              </li>
+              <li class="flex gap-3 p-2 border-b border-slate-200">
+                <fieldset>
+                  <input class="w-4 h-4" type="checkbox" id="task-4" />
+                  <label for="task-4"> Consult accountant </label>
+                </fieldset>
+              </li>
+              <li class="flex items-center gap-3 p-2 border-b border-slate-200">
+                <fieldset>
+                  <input class="w-4 h-4" type="checkbox" id="task-5" />
+                  <label for="task-5"> Orubt business card </label>
+                </fieldset>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
