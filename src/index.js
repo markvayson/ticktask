@@ -1,5 +1,8 @@
 import "./index.css";
+import menuInterface from "./modules/menu";
+import mainInterface from "./modules/content";
 
 const init = (() => {
-  const content = document.getElementById("content");
+  menuInterface;
+  mainInterface;
 })();
