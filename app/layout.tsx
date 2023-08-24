@@ -1,6 +1,7 @@
-import Modal from "@/components/ModalRevamp";
+import Modal from "@/components/ReModal";
 import "./globals.css";
 import type { Metadata } from "next";
+import Provider from "./provider";
 
 export const metadata: Metadata = {
   title: "Ticktask",
@@ -14,10 +15,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-[#F5F6F8]">
-        {children}
-        <Modal />
+    <html lang="en" suppressHydrationWarning>
+      <body className="">
+        <Provider>
+          {children}
+          <Modal />
+        </Provider>
       </body>
     </html>
   );

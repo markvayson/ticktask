@@ -8,54 +8,47 @@ const types = [
   {
     id: "todo",
     name: "Todo",
-    description: "A new task to be completed",
     color: "bg-red-500",
   },
   {
     id: "inprogress",
     name: "In progress",
-    description: "A task that is currently being worked on",
     color: "bg-yellow-500",
   },
   {
     id: "done",
     name: "Done",
-    description: "A task that has been completed",
     color: "bg-green-500",
   },
 ];
 
 function TaskTypeRadioGroup() {
-  const [setNewTaskType, newTaskType] = useBoardStore((state) => [
-    state.setNewTaskType,
-    state.newTaskType,
+  const [setTaskType, TaskType] = useBoardStore((state) => [
+    state.setTaskType,
+    state.TaskType,
   ]);
   return (
     <div className="w-full py-5">
       <div className="mx-auto w-full max-w-md">
         <RadioGroup
-          value={newTaskType}
+          value={TaskType}
           onChange={(e) => {
-            setNewTaskType(e);
+            setTaskType(e);
           }}
         >
-          <div className="space-y-2">
+          <div className="flex w-full items-center justify-evenly space-x-2">
             {types.map((type) => (
               <RadioGroup.Option
                 key={type.id}
                 value={type.id}
                 className={({ active, checked }) =>
-                  `${
-                    active
-                      ? "ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300"
-                      : ""
-                  }
+                  `
                 ${
                   checked
-                    ? `${type.color} bg-opacity-75 text-white`
-                    : "bg-white"
+                    ? `${type.color} bg-opacity-75 text-slate-400`
+                    : "bg-slate-400 dark:bg-white/20"
                 }
-                relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none
+                relative  w-full flex pr-2 pl-4 cursor-pointer rounded-lg py-4 shadow-md focus:outline-none
                 `
                 }
               >
@@ -67,21 +60,18 @@ function TaskTypeRadioGroup() {
                           <RadioGroup.Label
                             as="p"
                             className={`font-medium 
-                          ${checked ? "text-white" : "text-gray-900"}`}
+                          ${
+                            checked
+                              ? "text-slate-200"
+                              : "dark:text-white text-gray-900"
+                          }`}
                           >
                             {type.name}
                           </RadioGroup.Label>
-                          <RadioGroup.Description
-                            as="span"
-                            className={`inline 
-                        ${checked ? "text-white" : "text-gray-500"}`}
-                          >
-                            <span>{type.description}</span>
-                          </RadioGroup.Description>
                         </div>
                       </div>
                       {checked && (
-                        <div className="shrink-0 text-white">
+                        <div className="shrink-0 text-slate-200">
                           <CheckCircleIcon className="h-6 w-6" />
                         </div>
                       )}

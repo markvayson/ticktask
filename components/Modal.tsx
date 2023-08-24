@@ -10,15 +10,15 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 
 function Modal() {
   const imagePickerRef = useRef<HTMLInputElement>(null);
-  const [addTask, image, setImage, newTaskInput, setNewTaskInput, newTaskType] =
+  const [addTask, image, setImage, TaskInput, setTaskInput, newTaskType] =
     useBoardStore((state) => [
       state.addTask,
       state.image,
       state.setImage,
 
-      state.newTaskInput,
-      state.setNewTaskInput,
-      state.newTaskType,
+      state.TaskInput,
+      state.setTaskInput,
+      state.TaskType,
     ]);
 
   const [isOpen, closeModal] = useModalStore((state) => [
@@ -28,8 +28,8 @@ function Modal() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!newTaskInput) return;
-    addTask(newTaskInput, newTaskType, image);
+    if (!TaskInput) return;
+    addTask(TaskInput, newTaskType, image);
     setImage(null);
     closeModal();
   };
@@ -77,8 +77,8 @@ function Modal() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    value={newTaskInput}
-                    onChange={(e) => setNewTaskInput(e.target.value)}
+                    value={TaskInput}
+                    onChange={(e) => setTaskInput(e.target.value)}
                     placeholder="Enter a task here..."
                     className="w-full border border-gray-300 rounded-md outline-none p-5"
                   />
@@ -122,7 +122,7 @@ function Modal() {
                 <div className="mt-4">
                   <button
                     type="submit"
-                    disabled={!newTaskInput}
+                    disabled={!TaskInput}
                     className="inline-flex justify-center rounde-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-500 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:bg-gray-100 disabled:text-gray-300 disabled:cursor-not-allowed"
                   >
                     Add Task

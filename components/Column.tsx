@@ -20,17 +20,17 @@ const idToColumnText: {
 };
 
 function Column({ id, todos, index }: Props) {
-  const [setNewTaskInput, setUpdateTask, searchString, setNewTaskType] =
+  const [setTaskInput, setIsUpdating, searchString, setTaskType] =
     useBoardStore((state) => [
-      state.setNewTaskInput,
-      state.setUpdateTask,
+      state.setTaskInput,
+      state.setIsUpdating,
       state.searchString,
-      state.setNewTaskType,
+      state.setTaskType,
     ]);
   const openModal = useModalStore((state) => state.openModal);
 
   const handleAddToDo = () => {
-    setUpdateTask(""), setNewTaskInput(""), setNewTaskType(id), openModal();
+    setIsUpdating(false), setTaskInput(""), setTaskType(id), openModal();
   };
 
   return (
@@ -44,9 +44,9 @@ function Column({ id, todos, index }: Props) {
               snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"
             }`}
           >
-            <h2 className="flex justify-between font-bold text-xl p-2">
+            <h2 className="flex items-center justify-between font-bold text-xl p-2">
               {idToColumnText[id]}{" "}
-              <span className="text-gray-500 font-normal bg-gray-200 rounded-full px-2 py-2 text-sm">
+              <span className="text-gray-500 dark:bg-transparent dark:text-gray-300 font-normal bg-gray-200 rounded-full px-2 py-2 text-sm">
                 {!searchString
                   ? todos.length
                   : todos.filter((todo) =>
@@ -89,10 +89,14 @@ function Column({ id, todos, index }: Props) {
                   todos.length === 0 ? "justify-between" : "justify-end"
                 } p-2`}
               >
-                {todos.length === 0 && <span>Add task</span>}
+                {todos.length === 0 && (
+                  <span className="text-gray-400 dark:text-gray-300">
+                    No Task
+                  </span>
+                )}
                 <button
                   onClick={handleAddToDo}
-                  className="place-content-end text-green-500 hover:text-green-600"
+                  className="place-content-end text-blue-500 dark:text-cyan-400 dark:hover:text-blue-400 hover:text-blue-600"
                 >
                   <PlusCircleIcon className="h-10 w-10" />
                 </button>

@@ -1,3 +1,4 @@
+import getUrl from "@/lib/getUrl";
 import { useBoardStore } from "@/store/BoardStore";
 import { useModalStore } from "@/store/ModalStore";
 import { Popover, Transition } from "@headlessui/react";
@@ -6,7 +7,7 @@ import {
   PencilSquareIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 type Props = {
   todo: Todo;
@@ -15,21 +16,30 @@ type Props = {
 };
 
 const ClosePop = ({ todo, index, id }: Props) => {
-  const [setImage, setUpdateTask, setNewTaskInput, setNewTaskType, deleteTask] =
-    useBoardStore((state) => [
-      state.setImage,
-      state.setUpdateTask,
-      state.setNewTaskInput,
-      state.setNewTaskType,
-      state.deleteTask,
-    ]);
+  const [
+    setTaskType,
+    setTaskInput,
+    setTaskToUpdate,
+    setImage,
+    setIsUpdating,
+    deleteTask,
+  ] = useBoardStore((state) => [
+    state.setTaskType,
+    state.setTaskInput,
+    state.setTaskToUpdate,
+    state.setImage,
+    state.setIsUpdating,
+    state.deleteTask,
+  ]);
   const openModal = useModalStore((state) => state.openModal);
 
   const handleEditClick = () => {
-    setUpdateTask(todo.$id),
-      setNewTaskInput(todo.title),
-      setNewTaskType(todo.status),
-      openModal();
+    setIsUpdating(true),
+      setTaskToUpdate(todo),
+      setTaskType(todo.status),
+      setTaskInput(todo.title);
+
+    openModal();
   };
 
   return (
@@ -49,7 +59,7 @@ const ClosePop = ({ todo, index, id }: Props) => {
             leaveTo="opacity-0 translate-y-1"
           >
             <Popover.Panel className="absolute  right-0">
-              <div className="relative bg-white grid  ">
+              <div className="relative bg-white dark:bg-gray-400/80 rounded-lg grid  ">
                 <button
                   onClick={handleEditClick}
                   className="flex items-center justify-end gap-2 px-7 py-2 hover:bg-blue-500/20"
