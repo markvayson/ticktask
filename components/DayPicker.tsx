@@ -1,39 +1,64 @@
+"use client";
+
+import { useBoardStore } from "@/store/BoardStore";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import { format } from "date-fns";
+
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
 const DatePicker = () => {
   const [isAdd, setIsAdd] = useState<boolean>(false);
-  const [selected, setSelected] = useState<Date>();
-  let footer = <p>Please pick a day.</p>;
-  if (selected) {
-    footer = <p>You picked {format(selected, "PP")}.</p>;
-  }
-  const date = selected;
+  const [isOpenPicker, setIsOpenPicker] = useState<boolean>(false);
+  const [taskDueDate, setTaskDueDate] = useBoardStore((state) => [
+    state.taskDueDate,
+    state.setTaskDueDate,
+  ]);
+
+  const handleDateClick = (date: Date | undefined) => {
+    setTaskDueDate(date), setIsOpenPicker(false);
+  };
 
   const handleClick = () => {
     setIsAdd(!isAdd);
-    if (isAdd) {
-      setSelected(new Date());
-    } else {
-      setSelected(undefined);
+    if (!taskDueDate) {
+      setIsOpenPicker(true);
     }
+    setTaskDueDate(undefined);
   };
 
   return (
-    <div className="flex h-10 w-full gap-2 items-center justify-end">
-      {isAdd && selected ? (
-        <span className="dark:bg-gray-700 px-2 py-1 rounded-md  shadow-md">
-          {format(selected, "PP")}
-        </span>
-      ) : null}
+    <div className=" flex h-10 w-full gap-2 items-center justify-end">
+      {taskDueDate && (
+        <button
+          className="bg-slate-200/50 dark:bg-gray-700 p-2 rounded-md hover:dark:bg-gray-600"
+          type="button"
+          onClick={() => setIsOpenPicker(!isOpenPicker)}
+        >
+          {taskDueDate?.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </button>
+      )}
+
+      {isOpenPicker && (
+        <div>
+          <DayPicker
+            className="bg-slate-200/95 rounded-md p-2 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 dark:bg-gray-800"
+            mode="single"
+            selected={taskDueDate}
+            onSelect={handleDateClick}
+          />
+        </div>
+      )}
+
       <button type="button" onClick={handleClick}>
-        {isAdd ? (
-          <MinusCircleIcon className="w-6 h-6 text-red-400" />
+        {taskDueDate ? (
+          <MinusCircleIcon className="w-6 h-6 text-red-400 hover:text-red-500" />
         ) : (
-          <PlusCircleIcon className="w-6 h-6 text-green-400" />
+          <PlusCircleIcon className="w-6 h-6 text-green-400 hover:text-green-500" />
         )}
       </button>
     </div>

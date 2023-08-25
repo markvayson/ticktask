@@ -15,23 +15,33 @@ interface BoardState {
   TaskInput: string;
   setTaskInput: (input: string) => void;
   image: File | null;
+  imageUrl: string | null;
+  setImageUrl: (imageUrl: string | null) => void;
+
   setImage: (image: File | null) => void;
   TaskType: TypedColumn;
   setTaskType: (columnId: TypedColumn) => void;
   isUpdating: boolean;
   setIsUpdating: (input: boolean) => void;
-  taskCategory: string;
-  setTaskCategory: (input: string) => void;
-  taskDueDate: Date | null;
-  setTaskDueDate: (input: Date | null) => void;
-
-  addTask: (todo: string, columnId: TypedColumn, image?: File | null) => void;
+  taskDueDate: Date | undefined;
+  setTaskDueDate: (input: Date | undefined) => void;
+  taskNote: string;
+  setTaskNote: (input: string) => void;
+  addTask: (
+    todo: string,
+    columnId: TypedColumn,
+    image?: File | null,
+    dueDate?: Date | undefined,
+    note?: string
+  ) => void;
   deleteTask: (taskIndex: number, todoId: Todo, id: TypedColumn) => void;
   updateTask: (
     todoId: Todo,
     name: string,
     id: TypedColumn,
-    image?: File | null
+    image?: File | null,
+    dueDate?: Date | null,
+    note?: string
   ) => void;
 }
 
@@ -46,11 +56,13 @@ export const useBoardStore = create<BoardState>((set, get) => ({
   isUpdating: false,
   setIsUpdating: (input: boolean) => set({ isUpdating: input }),
 
-  taskCategory: "",
-  setTaskCategory: (input: string) => set({ taskCategory: input }),
+  imageUrl: "",
+  setImageUrl: (imageUrl: string | null) => set({ imageUrl }),
+  taskNote: "",
+  setTaskNote: (input: string) => set({ taskNote: input }),
 
-  taskDueDate: new Date(),
-  setTaskDueDate: (input: Date | null) => set({ taskDueDate: input }),
+  taskDueDate: undefined,
+  setTaskDueDate: (input: Date | undefined) => set({ taskDueDate: input }),
 
   taskToUpdate: "",
   setTaskToUpdate: (taskToUpdate: Todo) => set({ taskToUpdate }),
@@ -99,12 +111,24 @@ export const useBoardStore = create<BoardState>((set, get) => ({
     todo: Todo,
     name: string,
     id: TypedColumn,
-    image?: File | null
+    image?: File | null,
+    due?: Date | null,
+    taskNote?: string
   ) => {
     let file: Image | undefined;
+
     if (todo.image && image) {
       await storage.deleteFile(todo.image.bucketId, todo.image.fileId);
+      console.log("deleted");
     }
+
+    if (todo.image) {
+      file = {
+        bucketId: todo.image.bucketId,
+        fileId: todo.image.fileId,
+      };
+    }
+
     if (image) {
       const fileUploaded = await uploadImage(image);
       if (fileUploaded) {
@@ -118,6 +142,8 @@ export const useBoardStore = create<BoardState>((set, get) => ({
       ...todo,
       title: name,
       status: id,
+      dueDate: due ? due : null,
+      note: taskNote,
       ...(file && { image: JSON.stringify(file) }),
     };
 
@@ -133,7 +159,13 @@ export const useBoardStore = create<BoardState>((set, get) => ({
     set({ board });
   },
 
-  addTask: async (todo: string, columnId: TypedColumn, image?: File | null) => {
+  addTask: async (
+    todo: string,
+    columnId: TypedColumn,
+    image?: File | null,
+    due?: Date | undefined,
+    taskNote?: string
+  ) => {
     let file: Image | undefined;
     if (image) {
       const fileUploaded = await uploadImage(image);
@@ -151,6 +183,8 @@ export const useBoardStore = create<BoardState>((set, get) => ({
       {
         title: todo,
         status: columnId,
+        dueDate: due,
+        note: taskNote,
         ...(file && { image: JSON.stringify(file) }),
       }
     );
@@ -165,6 +199,8 @@ export const useBoardStore = create<BoardState>((set, get) => ({
         $createdAt: new Date().toISOString(),
         title: todo,
         status: columnId,
+        dueDate: due,
+        note: taskNote,
         ...(file && { image: file }),
       };
       const column = newColumns.get(columnId);

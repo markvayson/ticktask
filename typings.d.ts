@@ -14,8 +14,8 @@ interface Todo {
   $createdAt: string;
   title: string;
   status: TypedColumn;
-  category: string;
-  dueDate?: Date;
+  note?: string;
+  dueDate: Date | undefined;
   image?: Image;
 }
 

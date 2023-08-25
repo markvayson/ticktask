@@ -21,6 +21,8 @@ export const getTodosGroupedByColumn = async () => {
       $createdAt: todo.$createdAt,
       title: todo.title,
       status: todo.status,
+      note: todo.note,
+      dueDate: todo.dueDate,
 
       ...(todo.image && { image: JSON.parse(todo.image) }),
     });

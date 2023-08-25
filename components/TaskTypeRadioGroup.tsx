@@ -45,8 +45,8 @@ function TaskTypeRadioGroup() {
                   `
                 ${
                   checked
-                    ? `${type.color} bg-opacity-75 text-slate-400`
-                    : "bg-slate-400 dark:bg-white/20"
+                    ? `${type.color} bg-opacity-75 dark:bg-opacity-100 dark:text-slate-400`
+                    : "bg-white/80 dark:bg-gray-700/50"
                 }
                 relative  w-full flex pr-2 pl-4 cursor-pointer rounded-lg py-4 shadow-md focus:outline-none
                 `
@@ -62,7 +62,7 @@ function TaskTypeRadioGroup() {
                             className={`font-medium 
                           ${
                             checked
-                              ? "text-slate-200"
+                              ? "text-white"
                               : "dark:text-white text-gray-900"
                           }`}
                           >
@@ -71,7 +71,7 @@ function TaskTypeRadioGroup() {
                         </div>
                       </div>
                       {checked && (
-                        <div className="shrink-0 text-slate-200">
+                        <div className="shrink-0 text-slate-100  dark:text-slate-200">
                           <CheckCircleIcon className="h-6 w-6" />
                         </div>
                       )}

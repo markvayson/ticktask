@@ -17,27 +17,45 @@ type Props = {
 
 const ClosePop = ({ todo, index, id }: Props) => {
   const [
+    setImageUrl,
+    setTaskDueDate,
+    setTaskNote,
     setTaskType,
     setTaskInput,
     setTaskToUpdate,
-    setImage,
     setIsUpdating,
     deleteTask,
   ] = useBoardStore((state) => [
+    state.setImageUrl,
+    state.setTaskDueDate,
+    state.setTaskNote,
     state.setTaskType,
     state.setTaskInput,
     state.setTaskToUpdate,
-    state.setImage,
     state.setIsUpdating,
     state.deleteTask,
   ]);
   const openModal = useModalStore((state) => state.openModal);
 
   const handleEditClick = () => {
+    const date = todo.dueDate ? new Date(todo.dueDate) : undefined;
+
+    if (todo.image) {
+      const fetchImage = async () => {
+        const url = await getUrl(todo.image!);
+        if (url) {
+          setImageUrl(url.toString());
+        }
+      };
+      fetchImage();
+    }
+
     setIsUpdating(true),
       setTaskToUpdate(todo),
       setTaskType(todo.status),
-      setTaskInput(todo.title);
+      setTaskInput(todo.title),
+      setTaskNote(todo.note ? todo.note : ""),
+      setTaskDueDate(date);
 
     openModal();
   };

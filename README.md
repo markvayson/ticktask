@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TickTask - To-Do List App
 
-## Getting Started
+[Visit TickTask](https://ticktask-markvayson.vercel.app/)
 
-First, run the development server:
+TickTask is a user-friendly and efficient to-do list app inspired by [Trello](https://trello.com), and was built by following the guidance of [Sonny Sangha](https://www.papareact.com/). We've taken the core concepts of Trello and added enhancements and customizations to create a tailored solution for our users' needs.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+With TickTask, you can:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Dark Mode Quick Toggles:** Easily switch between light and dark modes to suit your preferences and reduce eye strain.
+- **Add Tasks:** Quickly include tasks to your list, ensuring important deadlines and activities are never forgotten.
+- **Rearrange Tasks:** Organize tasks across "To-Do," "In Progress," or "Done" categories for efficient task management.
+- **Enhance Tasks:** Attach images, notes, or due dates to tasks for additional context and better planning.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Stay organized and productive with TickTask. Download now and start turning your to-do list into a list of accomplishments!
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tech Stack
 
-## Learn More
+TickTask was built using modern technologies to provide a seamless user experience. The tech stack includes:
 
-To learn more about Next.js, take a look at the following resources:
+- **[Next.js](https://nextjs.org/)** 🚀: A React framework for building efficient and scalable applications.
+- **[Tailwind CSS](https://tailwindcss.com/)** 💨: A utility-first CSS framework for rapid UI development.
+- **[React Beautiful DND](https://github.com/atlassian/react-beautiful-dnd)** 🔄: A beautiful, accessible drag-and-drop library for lists and boards.
+- **[TypeScript](https://www.typescriptlang.org/)** 📝: A superset of JavaScript that adds static types and powerful tooling.
+- **[Heroicons](https://heroicons.com/)** 🦸‍♂️: A set of free, MIT-licensed high-quality SVG icons for you to use in your web projects.
+- **[Headless UI](https://headlessui.dev/)** 🕶️: Completely unstyled, fully accessible UI components for your applications.
+- **[Vercel](https://vercel.com/)** 🚀: A platform for deploying web projects with ease.
+- **[Appwrite](https://appwrite.io/)** 🛠️: An open-source backend server for building web and mobile apps.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions are welcome! If you find a bug or have an idea for an enhancement, please open an issue or submit a pull request.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the [MIT License](LICENSE).
